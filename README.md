@@ -21,6 +21,16 @@ Il s’agit d’un dépôt personnalisé, pas d’une intégration référencée
 
 Selon le modèle : **Réglage → Préférences → Réglage du périphérique réseau → Réglages périphérique externe → Profil de commande des Apps → Détection d’un nouvel appareil → Activé**. Les noms de menus peuvent varier. La TV doit être allumée et accessible depuis Home Assistant pendant l’appairage.
 
+### Commande marche TV et veille active
+
+Pour activer la veille réseau sur la série TL938 : **Réglage → Préférences → Réglage du périphérique réseau → Commande marche TV → Activé**. Attendre au moins une dizaine de secondes après la mise en veille avant de tester une commande. Cette veille active consomme davantage que la veille normale.
+
+La [notice Toshiba TL938, rubrique « Commande marche TV »](https://www.notice-facile.com/notice/77977/toshiba%2Btl938-_f) décrit cette fonction pour une connexion **Wi-Fi**. Elle ne constitue pas une garantie de réveil par Ethernet pour tous les modèles.
+
+**Essai en Ethernet sur le 46TL938K de référence :** après activation du réglage, l’API HTTP/HTTPS a répondu en veille. Lors d’un second cycle, elle répondait encore après 20 secondes, sans nouvel envoi de paquet Wake-on-LAN. Une touche Marche a fait passer l’état API de `off` à `on`, mais l’utilisateur a constaté que **l’écran restait éteint**. Le premier essai avait également inclus des paquets Wake-on-LAN : leur contribution au retour du réseau n’est pas établie.
+
+**Un port réseau joignable, une commande acceptée ou un état API `on` ne prouvent donc pas le réveil physique de l’écran.** Celui-ci reste non validé. La version actuelle n’annonce pas de commande Marche discrète et n’envoie pas de paquets Wake-on-LAN. Utiliser la télécommande physique pour allumer la TV tant que le réveil réel n’a pas été confirmé sur son modèle. Le lecteur multimédia affiche l’état déclaré par l’API ; il peut différer de l’état visible de l’écran.
+
 ### Installation manuelle
 
 Copier `custom_components/toshiba_legacy` dans le dossier `custom_components` de la configuration Home Assistant, puis redémarrer et ajouter l’intégration.
@@ -48,7 +58,7 @@ Plusieurs commandes peuvent être envoyées en liste. Maximum : 30 commandes, 10
 
 ## Limites connues
 
-- **Réveil réseau non vérifié.** La TV de référence cesse de répondre en veille. Aucun service Marche discret ni Wake-on-LAN n’est annoncé. Le bouton marche/veille est une **bascule**, à utiliser en connaissance de l’état de l’écran.
+- **Réveil physique non validé**, y compris après activation de « Commande marche TV ». L’API peut rester accessible et déclarer `on` sans que l’écran s’allume : voir la rubrique veille active ci-dessus. Le bouton marche/veille envoie une **bascule** ; son effet physique doit être vérifié sur le téléviseur.
 - **Pas de curseur de volume ni d’état de sourdine** : le firmware de référence ne fournit pas ces informations. La sourdine est une bascule par touche.
 - Les touches sont basées sur la table de télécommande européenne. L’API a accepté les touches Informations et Quitter ; toutes les touches n’ont pas été confirmées visuellement.
 - La lecture d’état et la sélection directe de `HDMI_2` ont été vérifiées. Cette version expose le bouton Sources pour naviguer avec la télécommande ; elle n’invente pas de liste d’entrées disponibles.

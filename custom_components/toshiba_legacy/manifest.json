@@ -1,12 +1,14 @@
 {
   "domain": "toshiba_legacy",
   "name": "Toshiba Legacy TV",
-  "codeowners": ["@lbrecl"],
+  "codeowners": [
+    "@lbrecl"
+  ],
   "config_flow": true,
   "documentation": "https://github.com/lbrecl/home-assistant-toshiba",
   "integration_type": "device",
   "iot_class": "local_polling",
   "issue_tracker": "https://github.com/lbrecl/home-assistant-toshiba/issues",
   "requirements": [],
-  "version": "0.1.0"
+  "version": "0.1.1"
 }
