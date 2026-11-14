@@ -120,5 +120,5 @@ async def test_real_entry_loads_all_entities(hass):
             {"entity_id": remote_id, "command": ["volume_up", "volume_down"], "delay_secs": 0},
             blocking=True,
         )
-        assert [call.args[0] for call in send_key.call_args_list] == ["40BF1A", "40BF1E"]
+        assert [call.args[0] for call in send_key.call_args_list] == ["40bf1a", "40bf1e"]
         await hass.config_entries.async_unload(entry.entry_id)

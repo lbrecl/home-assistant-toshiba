@@ -97,7 +97,7 @@ def television():
             elif self.path == "/v2/remote/confirm_connection":
                 self.reply({"status": 0})
             elif self.path == "/v2/remote/remote":
-                self.reply({"status": 0 if body == b"key=40BF84" else 2})
+                self.reply({"status": 0 if body == b"key=40bf16" else 2})
             else:
                 self.send_response(404)
                 self.send_header("Content-Length", "0")
@@ -129,7 +129,7 @@ def test_end_to_end_digest_pairing_and_command_errors(television):
     client = ToshibaClient("127.0.0.1", port, "02-00-00-00-00-01", password)
     client.confirm_pairing()
     assert client.status()["external_input"] == "HDMI_2"
-    client.send_key("40BF84")
+    client.send_key("40bf16")
     with pytest.raises(ToshibaError, match="rejected"):
         client.send_key("not-a-key")
     with pytest.raises(ToshibaError, match="404"):

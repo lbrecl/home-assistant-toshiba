@@ -2,7 +2,7 @@
 
 Pilote les anciens téléviseurs Toshiba dotés de l’API locale **IPC v2 / PIN_Auth**, sans l’application mobile Toshiba obsolète. L’appairage se fait directement dans l’interface Home Assistant : adresse IP, puis code PIN affiché par la TV.
 
-Première version expérimentale. Le protocole a été vérifié sur un **Toshiba 46TL938K**, firmware **7.0.28.16.1**. La compatibilité d’autres modèles reste à confirmer. Cette intégration ne cible pas Android TV, Fire TV, VIDAA ou Vestel SmartCenter.
+Première version expérimentale. Le protocole a été vérifié sur un **Toshiba 46TL938K**, firmware **7.0.28.16.1**. Cette version utilise la table de touches **CT-90405**, la télécommande de cette série. La compatibilité d’autres modèles et télécommandes reste à confirmer. Cette intégration ne cible pas Android TV, Fire TV, VIDAA ou Vestel SmartCenter.
 
 ## Installation depuis le Marketplace
 
@@ -60,8 +60,8 @@ Plusieurs commandes peuvent être envoyées en liste. Maximum : 30 commandes, 10
 
 - **Réveil physique non validé**, y compris après activation de « Commande marche TV ». L’API peut rester accessible et déclarer `on` sans qu’une image soit visible : voir la rubrique veille active ci-dessus. Le bouton marche/veille envoie une **bascule** ; son effet physique doit être vérifié sur le téléviseur.
 - **Pas de curseur de volume ni d’état de sourdine** : le firmware de référence ne fournit pas ces informations. La sourdine est une bascule par touche.
-- Les touches sont basées sur la table de télécommande européenne. L’API a accepté les touches Informations et Quitter ; toutes les touches n’ont pas été confirmées visuellement.
-- La lecture d’état et la sélection directe de `HDMI_2` ont été vérifiées. Cette version expose le bouton Sources pour naviguer avec la télécommande ; elle n’invente pas de liste d’entrées disponibles.
+- Les touches utilisent maintenant la table spécifique **CT-90405**. **MENU a été confirmé visuellement sur le 46TL938K** avec le code `40bf5b`. La table générique utilisée en 0.1.0/0.1.1 envoyait notamment `40bf80`, accepté par l’API mais sans affichage du menu : mettre à jour vers **0.1.2 ou ultérieur**. Toutes les autres touches n’ont pas encore été confirmées visuellement.
+- La lecture d’état et l’acceptation de la requête `HDMI_2` ont été vérifiées côté API ; l’effet visible d’un changement réel d’entrée n’a pas encore été confirmé. Cette version expose le bouton Sources pour naviguer avec la télécommande ; elle n’invente pas de liste d’entrées disponibles.
 - L’état est vérifié avant l’envoi de la bascule de mise en veille. Un changement simultané via une autre télécommande peut toutefois créer une course entre la lecture et la commande.
 - Le PIN n’est pas conservé. Les identifiants délivrés par la TV sont stockés par Home Assistant dans son entrée de configuration, jamais dans ce dépôt. Le pilotage se fait en HTTP local avec authentification Digest ; la TV n’est pas un service cloud.
 
@@ -78,7 +78,8 @@ Les tests couvrent la dérivation du mot de passe, les erreurs d’authentificat
 ## Références
 
 - [9SQ/regza-digest-auth](https://github.com/9SQ/regza-digest-auth) : référence de l’appairage PIN, PBKDF2-SHA1 (1331 itérations), AES-128-CBC et Digest.
-- [DSchndr/toshiba-stv-ip-remote](https://github.com/DSchndr/toshiba-stv-ip-remote) : documentation de l’API Toshiba et table des touches.
+- [DSchndr/toshiba-stv-ip-remote](https://github.com/DSchndr/toshiba-stv-ip-remote) : documentation de l’API Toshiba. Sa table générique de touches ne correspond pas entièrement à la CT-90405.
+- [Table CT-90405 du noyau Linux](https://github.com/torvalds/linux/blob/master/drivers/media/rc/keymaps/rc-ct-90405.c) : référence des commandes de la télécommande de cette série.
 - [Documentation du Marketplace](https://www.home-assistant.io/integrations/marketplace/).
 
 Projet communautaire, sans affiliation à Toshiba ou Home Assistant. Licence MIT.
