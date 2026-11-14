@@ -1,0 +1,84 @@
+{
+  "title": "Toshiba Legacy TV",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Toshiba Legacy TV",
+        "description": "Turn the TV on and enable new device detection in its Apps Control Profile. Enter its IP address or hostname.",
+        "data": {
+          "host": "IP address or hostname",
+          "port": "Port HTTP"
+        }
+      },
+      "pin": {
+        "title": "Toshiba pairing",
+        "description": "Enter the four-digit PIN displayed on the TV ({host}). It expires quickly. To get a new code, select Restart pairing and submit this form.",
+        "data": {
+          "pin": "PIN code",
+          "restart": "Restart pairing"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Pair the TV again",
+        "description": "Turn the TV on. Continuing will display a new PIN on its screen."
+      }
+    },
+    "error": {
+      "invalid_host": "Enter an IP address or hostname, without http:// or a path.",
+      "cannot_connect": "The TV did not respond. Check its power, address and network.",
+      "invalid_pin": "Incorrect or expired PIN. Restart pairing to get a new code.",
+      "pairing_failed": "The TV rejected the request. Check new device detection and restart pairing."
+    },
+    "abort": {
+      "already_configured": "This TV is already configured.",
+      "unsupported_tv": "This TV does not provide the Toshiba IPC v2 PIN pairing API.",
+      "wrong_tv": "This address belongs to a different television.",
+      "reauth_successful": "Pairing renewed."
+    }
+  },
+  "entity": {
+    "remote": {
+      "remote": {
+        "name": "Remote"
+      }
+    },
+    "button": {
+      "power": {
+        "name": "Power toggle"
+      },
+      "mute": {
+        "name": "Mute toggle"
+      },
+      "input": {
+        "name": "Inputs"
+      },
+      "up": {
+        "name": "Up"
+      },
+      "down": {
+        "name": "Down"
+      },
+      "left": {
+        "name": "Left"
+      },
+      "right": {
+        "name": "Right"
+      },
+      "ok": {
+        "name": "OK"
+      },
+      "back": {
+        "name": "Back"
+      },
+      "menu": {
+        "name": "Menu"
+      },
+      "exit": {
+        "name": "Exit"
+      },
+      "info": {
+        "name": "Information"
+      }
+    }
+  }
+}

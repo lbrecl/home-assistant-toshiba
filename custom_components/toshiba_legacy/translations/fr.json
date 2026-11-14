@@ -1,0 +1,84 @@
+{
+  "title": "Toshiba Legacy TV",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Toshiba Legacy TV",
+        "description": "Allumez la TV et activez la détection de nouveaux appareils dans le profil de commande des Apps. Saisissez son adresse IP ou son nom réseau.",
+        "data": {
+          "host": "Adresse IP ou nom réseau",
+          "port": "Port HTTP"
+        }
+      },
+      "pin": {
+        "title": "Appairage Toshiba",
+        "description": "Saisissez le PIN à 4 chiffres affiché sur la TV ({host}). Il expire rapidement. Si nécessaire, cochez Relancer puis validez pour afficher un nouveau code.",
+        "data": {
+          "pin": "Code PIN",
+          "restart": "Relancer l’appairage"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Réassocier la TV",
+        "description": "Allumez la TV. Continuer affichera un nouveau PIN sur son écran."
+      }
+    },
+    "error": {
+      "invalid_host": "Saisissez une adresse IP ou un nom réseau, sans http:// ni chemin.",
+      "cannot_connect": "La TV ne répond pas. Vérifiez son alimentation, son adresse et le réseau.",
+      "invalid_pin": "PIN incorrect ou expiré. Relancez l’appairage pour obtenir un nouveau code.",
+      "pairing_failed": "La TV a refusé la demande. Vérifiez la détection de nouveaux appareils et relancez l’appairage."
+    },
+    "abort": {
+      "already_configured": "Cette TV est déjà configurée.",
+      "unsupported_tv": "Ce téléviseur ne fournit pas l’API Toshiba IPC v2 avec appairage PIN.",
+      "wrong_tv": "L’adresse correspond à un autre téléviseur.",
+      "reauth_successful": "Appairage renouvelé."
+    }
+  },
+  "entity": {
+    "remote": {
+      "remote": {
+        "name": "Télécommande"
+      }
+    },
+    "button": {
+      "power": {
+        "name": "Marche / veille (bascule)"
+      },
+      "mute": {
+        "name": "Sourdine (bascule)"
+      },
+      "input": {
+        "name": "Sources"
+      },
+      "up": {
+        "name": "Haut"
+      },
+      "down": {
+        "name": "Bas"
+      },
+      "left": {
+        "name": "Gauche"
+      },
+      "right": {
+        "name": "Droite"
+      },
+      "ok": {
+        "name": "OK"
+      },
+      "back": {
+        "name": "Retour"
+      },
+      "menu": {
+        "name": "Menu"
+      },
+      "exit": {
+        "name": "Quitter"
+      },
+      "info": {
+        "name": "Informations"
+      }
+    }
+  }
+}
