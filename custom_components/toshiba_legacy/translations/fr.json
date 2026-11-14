@@ -4,7 +4,7 @@
     "step": {
       "user": {
         "title": "Toshiba Legacy TV",
-        "description": "Allumez la TV et activez la détection de nouveaux appareils dans le profil de commande des Apps. Saisissez son adresse IP ou son nom réseau.\n\nPour la veille réseau sur la série TL938 : Réglage → Préférences → Réglage du périphérique réseau → Commande marche TV → Activé. Attendez au moins 10 secondes après la mise en veille. La consommation en veille augmente.\n\nLa notice décrit cette option pour le Wi-Fi. En Ethernet, l’API a répondu en veille sur le 46TL938K testé, mais le réveil de l’écran n’a pas été confirmé. Un état API « on » ne suffit pas à prouver le retour d’une image visible. Utilisez la télécommande physique pour allumer la TV ; cette version ne fournit pas de commande Marche discrète ni de Wake-on-LAN.\n\nTouches : profil de télécommande CT-90405 (série TL938). MENU a été confirmé visuellement sur le 46TL938K ; les autres profils ne sont pas encore validés.",
+        "description": "Allumez la TV et activez la détection de nouveaux appareils dans le profil de commande des Apps. Saisissez son adresse IP ou son nom réseau.\n\nPour le réveil par réseau sur la série TL938 : Réglage → Préférences → Réglage du périphérique réseau → Commande marche TV → Activé. Attendez au moins 10 secondes après la mise en veille. La consommation en veille augmente.\n\nLa notice décrit cette option pour le Wi-Fi ; un cycle veille/réveil a aussi été confirmé visuellement en Ethernet sur le 46TL938K (firmware 7.0.28.16.1). Les actions Marche/Veille vérifient l’état avant d’envoyer la bascule. Le réseau doit rester accessible en veille active ; aucun paquet Wake-on-LAN n’est envoyé. Les autres modèles restent à vérifier.\n\nTouches : profil CT-90405 (série TL938).\n\nL’interrupteur de l’entité Télécommande commande l’alimentation de la TV ; il ne désactive pas l’intégration.",
         "data": {
           "host": "Adresse IP ou nom réseau",
           "port": "Port HTTP"
@@ -39,7 +39,7 @@
   "entity": {
     "remote": {
       "remote": {
-        "name": "Télécommande"
+        "name": "Télécommande et alimentation TV"
       }
     },
     "button": {

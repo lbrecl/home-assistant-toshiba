@@ -33,3 +33,24 @@ class ToshibaEntity(CoordinatorEntity):
             raise HomeAssistantError("TV authentication failed; pair it again") from err
         except ToshibaError as err:
             raise HomeAssistantError(str(err)) from err
+
+    async def async_set_power(self, desired: str):
+        """Turn on/off only from a freshly confirmed opposite state.
+
+        The TV exposes a toggle key, so serialize explicit power requests across
+        the media player and remote to prevent duplicate ON requests toggling OFF.
+        """
+        async with self.coordinator.power_lock:
+            await self.coordinator.async_refresh()
+            if not self.coordinator.last_update_success:
+                raise HomeAssistantError(
+                    "Cannot confirm TV power state. Enable TV Power On Control "
+                    "(active standby) and check that the TV remains reachable."
+                )
+            current = self.coordinator.data.get("power")
+            if current not in ("on", "off"):
+                raise HomeAssistantError("The TV returned an unknown power state")
+            if current == desired:
+                return
+            await self.async_key("power")
+            await self.coordinator.async_refresh()

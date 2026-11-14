@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import logging
 from datetime import timedelta
 
@@ -27,6 +28,7 @@ class ToshibaCoordinator(DataUpdateCoordinator[dict]):
         )
         self.api = api
         self.entry = entry
+        self.power_lock = asyncio.Lock()
 
     async def _async_update_data(self) -> dict:
         try:

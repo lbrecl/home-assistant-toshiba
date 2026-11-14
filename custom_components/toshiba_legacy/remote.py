@@ -40,14 +40,7 @@ class ToshibaRemote(ToshibaEntity, RemoteEntity):
         await self.coordinator.async_request_refresh()
 
     async def async_turn_on(self, **kwargs):
-        raise HomeAssistantError(
-            "Network wake has not been verified for this TV; use its physical remote"
-        )
+        await self.async_set_power("on")
 
     async def async_turn_off(self, **kwargs):
-        await self.coordinator.async_refresh()
-        if not self.coordinator.last_update_success:
-            raise HomeAssistantError("Cannot confirm TV state before switching off")
-        if self.is_on:
-            await self.async_key("power")
-            await self.coordinator.async_request_refresh()
+        await self.async_set_power("off")

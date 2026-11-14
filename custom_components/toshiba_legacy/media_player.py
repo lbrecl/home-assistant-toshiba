@@ -16,7 +16,9 @@ async def async_setup_entry(hass, entry, async_add_entities):
 class ToshibaMediaPlayer(ToshibaEntity, MediaPlayerEntity):
     _attr_name = None
     _attr_supported_features = (
-        MediaPlayerEntityFeature.VOLUME_STEP | MediaPlayerEntityFeature.TURN_OFF
+        MediaPlayerEntityFeature.VOLUME_STEP
+        | MediaPlayerEntityFeature.TURN_OFF
+        | MediaPlayerEntityFeature.TURN_ON
     )
 
     def __init__(self, coordinator):
@@ -38,7 +40,10 @@ class ToshibaMediaPlayer(ToshibaEntity, MediaPlayerEntity):
 
     @property
     def extra_state_attributes(self):
-        return {"channel": self.coordinator.data.get("channel"), "network_wake_verified": False}
+        return {
+            "channel": self.coordinator.data.get("channel"),
+            "wake_requires_active_standby": True,
+        }
 
     async def async_volume_up(self):
         await self.async_key("volume_up")
@@ -46,13 +51,8 @@ class ToshibaMediaPlayer(ToshibaEntity, MediaPlayerEntity):
     async def async_volume_down(self):
         await self.async_key("volume_down")
 
-    async def async_turn_off(self):
-        # Refresh first: a toggle must not wake a TV whose state changed meanwhile.
-        await self.coordinator.async_refresh()
-        if not self.coordinator.last_update_success:
-            from homeassistant.exceptions import HomeAssistantError
+    async def async_turn_on(self):
+        await self.async_set_power("on")
 
-            raise HomeAssistantError("Cannot confirm TV state before switching off")
-        if self.coordinator.data.get("power") == "on":
-            await self.async_key("power")
-            await self.coordinator.async_request_refresh()
+    async def async_turn_off(self):
+        await self.async_set_power("off")

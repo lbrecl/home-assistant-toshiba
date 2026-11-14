@@ -4,7 +4,7 @@
     "step": {
       "user": {
         "title": "Toshiba Legacy TV",
-        "description": "Turn the TV on and enable new device detection in its Apps Control Profile. Enter its IP address or hostname.\n\nFor network standby on the TL938 series: Setup → Preferences → Network Device Setup → TV Power On Control → On. Wait at least 10 seconds after entering standby. Active standby uses more power.\n\nThe manual describes this option for Wi-Fi. On the tested 46TL938K, the API responded in Ethernet standby, but physical screen wake was not confirmed. An API state of “on” does not by itself confirm that a visible image has returned. Use the physical remote to switch the TV on; this version does not provide discrete power-on or Wake-on-LAN.\n\nRemote keys: CT-90405 profile (TL938 series). MENU was visually confirmed on the 46TL938K; other remote profiles are not yet validated.",
+        "description": "Turn the TV on and enable new device detection in its Apps Control Profile. Enter its IP address or hostname.\n\nFor network wake on the TL938 series: Setup → Preferences → Network Device Setup → TV Power On Control → On. Wait at least 10 seconds after entering standby. Active standby uses more power.\n\nThe manual describes this option for Wi-Fi; a full standby/wake cycle was also visually confirmed over Ethernet on the 46TL938K (firmware 7.0.28.16.1). Explicit On/Off actions check the current state before sending the toggle. The API must remain reachable in active standby; no Wake-on-LAN packets are sent. Other models still require verification.\n\nRemote keys: CT-90405 profile (TL938 series).\n\nThe Remote entity switch controls TV power; it does not disable this integration.",
         "data": {
           "host": "IP address or hostname",
           "port": "Port HTTP"
@@ -39,7 +39,7 @@
   "entity": {
     "remote": {
       "remote": {
-        "name": "Remote"
+        "name": "Remote and TV power"
       }
     },
     "button": {
