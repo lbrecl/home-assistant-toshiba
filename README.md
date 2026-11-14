@@ -23,11 +23,13 @@ Selon le modèle : **Réglage → Préférences → Réglage du périphérique r
 
 ### Commande marche TV et veille active
 
-Pour activer la veille réseau sur la série TL938 : **Réglage → Préférences → Réglage du périphérique réseau → Commande marche TV → Activé**. Attendre au moins une dizaine de secondes après la mise en veille avant de tester une commande. Cette veille active consomme davantage que la veille normale.
+Pour activer la veille réseau sur la série TL938 : **Réglage → Préférences → Réglage du périphérique réseau → Commande marche TV → Activé**. Attendre au moins une dizaine de secondes après la mise en veille avant de tester une commande. Cette veille active consomme davantage que la veille normale. Sur l’exemplaire 46TL938K utilisé pour les essais, l’utilisateur signale aussi que les ports USB restent alimentés avec cette option. Ne pas activer ce mode si les USB doivent s’éteindre en veille ; les essais Wake-on-LAN avec l’option désactivée n’ont pas rétabli l’accès réseau.
 
 La [notice Toshiba TL938, rubrique « Commande marche TV »](https://www.notice-facile.com/notice/77977/toshiba%2Btl938-_f) décrit cette fonction pour une connexion **Wi-Fi**. Elle ne constitue pas une garantie de réveil par Ethernet pour tous les modèles.
 
 **Réveil confirmé en Ethernet sur le 46TL938K**, firmware 7.0.28.16.1, avec ce réglage activé : mise en veille par la touche CT-90405, attente de 20 secondes, état API `off`, envoi du code Marche `40bf12`, puis état `on`. L’utilisateur a confirmé visuellement la mise en veille, le rallumage et le menu affiché après le réveil. Ce cycle n’a utilisé aucun paquet Wake-on-LAN.
+
+**Avec « Commande marche TV » désactivé :** les services HTTP et HTTPS sont restés injoignables après deux essais Wake-on-LAN (ports UDP 7/9, diffusions locale et générale, attentes de 12 puis 30 secondes). Ce test ne valide donc pas un réveil avec les USB éteints. L’intégration ne propose pas de Wake-on-LAN comme solution de remplacement éprouvée sur ce modèle. Si les USB doivent s’éteindre, conserver l’option désactivée et utiliser un autre moyen d’allumage ; la commande réseau seule ne peut pas agir tant que la TV ne répond pas.
 
 Depuis la **version 0.2.0**, `media_player.turn_on` et `remote.turn_on` utilisent ce réveil par API en veille active. Les actions Marche et Veille lisent l’état juste avant l’envoi et n’envoient la touche de bascule que si l’état confirmé est opposé à la demande. Les demandes explicites de puissance sont sérialisées entre le lecteur multimédia et la télécommande. Si l’API ne répond pas, aucune bascule à l’aveugle n’est envoyée.
 
