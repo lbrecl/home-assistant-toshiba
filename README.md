@@ -27,9 +27,9 @@ Pour activer la veille réseau sur la série TL938 : **Réglage → Préférence
 
 La [notice Toshiba TL938, rubrique « Commande marche TV »](https://www.notice-facile.com/notice/77977/toshiba%2Btl938-_f) décrit cette fonction pour une connexion **Wi-Fi**. Elle ne constitue pas une garantie de réveil par Ethernet pour tous les modèles.
 
-**Essai en Ethernet sur le 46TL938K de référence :** après activation du réglage, l’API HTTP/HTTPS a répondu en veille. Lors d’un second cycle, elle répondait encore après 20 secondes, sans nouvel envoi de paquet Wake-on-LAN. Une touche Marche a fait passer l’état API de `off` à `on`, mais l’utilisateur a constaté que **l’écran restait éteint**. Le premier essai avait également inclus des paquets Wake-on-LAN : leur contribution au retour du réseau n’est pas établie.
+**Essai en Ethernet sur le 46TL938K de référence :** après activation du réglage, l’API HTTP/HTTPS a répondu en veille. Lors d’un second cycle, elle répondait encore après 20 secondes, sans nouvel envoi de paquet Wake-on-LAN. Une touche Marche a fait passer l’état API de `off` à `on`, mais l’utilisateur a signalé un **écran noir**, puis précisé qu’il s’agissait d’une sorte de veille intermédiaire. Cette observation ne suffit pas à conclure à un succès ou à un échec du réveil physique. Le premier essai avait également inclus des paquets Wake-on-LAN : leur contribution au retour du réseau n’est pas établie.
 
-**Un port réseau joignable, une commande acceptée ou un état API `on` ne prouvent donc pas le réveil physique de l’écran.** Celui-ci reste non validé. La version actuelle n’annonce pas de commande Marche discrète et n’envoie pas de paquets Wake-on-LAN. Utiliser la télécommande physique pour allumer la TV tant que le réveil réel n’a pas été confirmé sur son modèle. Le lecteur multimédia affiche l’état déclaré par l’API ; il peut différer de l’état visible de l’écran.
+**Un port réseau joignable, une commande acceptée ou un état API `on` ne prouvent donc pas le réveil physique de l’écran.** Le réveil physique reste à vérifier avec un indicateur visible, comme un menu ou le voyant d’alimentation. La version actuelle n’annonce pas de commande Marche discrète et n’envoie pas de paquets Wake-on-LAN. Utiliser la télécommande physique pour allumer la TV tant que le réveil réel n’a pas été confirmé sur son modèle. Le lecteur multimédia affiche l’état déclaré par l’API ; il peut différer de l’état visible de l’écran.
 
 ### Installation manuelle
 
@@ -58,7 +58,7 @@ Plusieurs commandes peuvent être envoyées en liste. Maximum : 30 commandes, 10
 
 ## Limites connues
 
-- **Réveil physique non validé**, y compris après activation de « Commande marche TV ». L’API peut rester accessible et déclarer `on` sans que l’écran s’allume : voir la rubrique veille active ci-dessus. Le bouton marche/veille envoie une **bascule** ; son effet physique doit être vérifié sur le téléviseur.
+- **Réveil physique non validé**, y compris après activation de « Commande marche TV ». L’API peut rester accessible et déclarer `on` sans qu’une image soit visible : voir la rubrique veille active ci-dessus. Le bouton marche/veille envoie une **bascule** ; son effet physique doit être vérifié sur le téléviseur.
 - **Pas de curseur de volume ni d’état de sourdine** : le firmware de référence ne fournit pas ces informations. La sourdine est une bascule par touche.
 - Les touches sont basées sur la table de télécommande européenne. L’API a accepté les touches Informations et Quitter ; toutes les touches n’ont pas été confirmées visuellement.
 - La lecture d’état et la sélection directe de `HDMI_2` ont été vérifiées. Cette version expose le bouton Sources pour naviguer avec la télécommande ; elle n’invente pas de liste d’entrées disponibles.
